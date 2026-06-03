@@ -1,17 +1,19 @@
 # su26-ai301-contribution
 
-# Contribution [#]: [Issue Title]
+# Contribution #1: Redesign --show-dashboard UI for Reduced Terminal Footprint
 
-**Contribution Number:** [1 / 2 / 3]  
-**Student:** [Your Name]  
-**Issue:** [GitHub issue link]  
-**Status:** [Phase I / Phase II / Phase III / Phase IV] [In Progress / Complete]
+**Contribution Number:** [1]  
+**Student:** [TF Alfredo Medina]  
+**Issue:** [(https://github.com/skkdevcraft/agentignore/issues/6)]  
+**Status:** [Phase I] [Complete]
 
 ---
 
 ## Why I Chose This Issue
 
-[1-2 paragraphs explaining why this issue interests you, how it matches your skills/learning goals, what you hope to learn]
+I chose issue #6, "Redesign --show-dashboard UI for Reduced Terminal Footprint," because it focuses on improving the usability of a developer tool while remaining scoped to a specific feature area (Can be done within 3-4 weeks). The issue includes detailed requirements, examples of desired behavior, implementation constraints, and a clear explanation of the problem, making it a strong candidate for an open-source contribution.
+
+This issue aligns with my goal of learning more about terminal-based applications, responsive interface design, and contributing to a real-world codebase. From reading the issue description, I understand that the current dashboard consumes too much terminal space and does not adapt well to terminal resize events. The proposed solution is to create a more compact and responsive interface that prioritizes filesystem activity while still displaying important metrics and status information. I am interested in learning how terminal rendering and layout management are implemented while contributing a feature that directly improves the user experience.
 
 ---
 
@@ -19,19 +21,23 @@
 
 ### Problem Description
 
-[In your own words, what's broken or missing?]
+The current AgentIgnore dashboard provides useful monitoring information, but it occupies a significant amount of terminal space and does not appear to handle terminal resizing gracefully.
 
 ### Expected Behavior
 
-[What should happen?]
+The dashboard should automatically adapt to different terminal sizes while prioritizing the activity stream.
 
 ### Current Behavior
 
-[What actually happens?]
+The dashboard uses a large amount of terminal space and behaves more like a full-screen monitoring interface than a lightweight activity viewer.
 
 ### Affected Components
 
-[Which parts of the codebase are involved?]
+- Dashboard rendering logic
+- Terminal layout management
+- Activity stream display
+- Status and metrics display components
+- Terminal resize event handling
 
 ---
 
