@@ -82,13 +82,13 @@ Challenge encountered:
 - **Commit showing reproduction:** https://github.com/Juuicee/agentignore/tree/dashboard-compact-ui
 - **Screenshots/logs:** [If applicable]
 - **My findings:**
-  ### Dashboard rendering logic is located in:
+  *Dashboard rendering logic is located in:*
   - src/cmd/mount.rs → render_dashboard()
-  ### Current UI behavior:
+  *Current UI behavior:*
   - Allocates multiple terminal rows to metrics and diagnostics
   - Activity stream competes with status/metrics for space
   - Layout is not responsive to terminal resize events
-  ### Key limitation discovered:
+  *Key limitation discovered:*
   - Project is Linux-dependent and cannot run natively on Windows
 
 ---
