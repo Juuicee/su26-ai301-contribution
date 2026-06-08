@@ -80,7 +80,7 @@ Challenge encountered:
 ### Reproduction Evidence
 
 - **Commit showing reproduction:** https://github.com/Juuicee/agentignore/tree/dashboard-compact-ui
-- **Screenshots/logs:** [If applicable]
+- **Screenshots/logs:** ![Reproduction Screenshot](Reproduction_AgentIgnore.png)
 - **My findings:**
   ##### Dashboard rendering logic is located in:
   - src/cmd/mount.rs → render_dashboard()
