@@ -5,7 +5,7 @@
 **Contribution Number:** [1]  
 **Student:** [TF Alfredo Medina]  
 **Issue:** [(https://github.com/skkdevcraft/agentignore/issues/6)]  
-**Status:** [Phase I] [Complete]
+**Status:** [Phase II] [Complete]
 
 ---
 
@@ -45,19 +45,51 @@ The dashboard uses a large amount of terminal space and behaves more like a full
 
 ### Environment Setup
 
-[Notes on setting up your local development environment - challenges you faced, how you solved them]
+- Cloned the repository successfully on Windows (PowerShell).
+- Installed Rust toolchain (cargo + rustc) using rustup.
+- Verified installation:
+  - `cargo --version`
+  - `rustc --version`
+- No additional dependencies were installed.
+
+Challenge encountered:
+- Initial PATH issue prevented Rust from being recognized.
+- Resolved by adding `~/.cargo/bin` to system PATH.
 
 ### Steps to Reproduce
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
-
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/agentignore.git
+   cd agentignore
+2. Attempt to build the project:
+   - cargo build
+3. Observe build failure on Windows due to platform-specific dependencies:
+   - procfs requires Linux /proc filesystem (unsupported on Windows)
+   - fuser requires pkg-config and FUSE (not available on Windows)
+4. Inspect source code directly:
+   - Located dashboard implementation in src/cmd/mount.rs
+   - Identified render_dashboard() as the main UI rendering function
+     
+*Observed Result*
+- Project does not fully build on native Windows.
+- Build fails due to Linux-specific dependencies (procfs, fuser).
+- Full runtime dashboard cannot be executed without Linux or WSL.
+- Source code inspection still confirms dashboard architecture and layout logic.
+  
 ### Reproduction Evidence
 
-- **Commit showing reproduction:** [Link to commit in your fork]
+- **Commit showing reproduction:** https://github.com/Juuicee/agentignore/tree/dashboard-compact-ui
 - **Screenshots/logs:** [If applicable]
-- **My findings:** [What you discovered during reproduction]
+- **My findings:**
+  Dashboard rendering logic is located in:
+  - src/cmd/mount.rs → render_dashboard()
+  Current UI behavior:
+  - Allocates multiple terminal rows to metrics and diagnostics
+  - Activity stream competes with status/metrics for space
+  - Layout is not responsive to terminal resize events
+  Key limitation discovered:
+  - Project is Linux-dependent and cannot run natively on Windows
 
 ---
 
