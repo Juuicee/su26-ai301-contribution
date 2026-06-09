@@ -51,10 +51,7 @@ The dashboard uses a large amount of terminal space and behaves more like a full
   - `cargo --version`
   - `rustc --version`
 - No additional dependencies were installed.
-
-Challenge encountered:
-- Initial PATH issue prevented Rust from being recognized.
-- Resolved by adding `~/.cargo/bin` to system PATH.
+- Add `~/.cargo/bin` to system PATH.
 
 ### Steps to Reproduce
 
@@ -73,14 +70,12 @@ Challenge encountered:
      
 *Observed Result*
 - Project does not fully build on native Windows.
-- Build fails due to Linux-specific dependencies (procfs, fuser).
 - Full runtime dashboard cannot be executed without Linux or WSL.
 - Source code inspection still confirms dashboard architecture and layout logic.
   
 ### Reproduction Evidence
 
 - **Commit showing reproduction:** https://github.com/Juuicee/agentignore/tree/dashboard-compact-ui
-- **Screenshots/logs:** ![Reproduction Screenshot](Reproduction_AgentIgnore.png)
 - **My findings:**
   ##### Dashboard rendering logic is located in:
   - src/cmd/mount.rs → render_dashboard()
