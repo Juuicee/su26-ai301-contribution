@@ -92,57 +92,112 @@ The dashboard uses a large amount of terminal space and behaves more like a full
 
 ### Analysis
 
-[Your analysis of the root cause - what's causing the issue?]
+After reviewing the dashboard implementation in src/cmd/mount.rs, I identified that the primary cause of the issue is the use of a fixed-layout dashboard that allocates significant terminal space to statistics, decorative borders, and status information regardless of terminal size.
+
+The current implementation:
+
+- Uses a multi-row OPS table that consumes several terminal lines.
+- Displays decorative header and footer borders that provide little functional value.
+- Uses fixed-width formatting for paths, process names, and charts.
+- Does not query terminal dimensions or respond to terminal resize events.
+- Prioritizes dashboard metrics and visual elements over the filesystem activity stream.
+
+As a result, recent file access events can quickly be pushed off-screen, especially in smaller terminals or split-pane development environments.
 
 ### Proposed Solution
 
-[High-level description of your fix approach]
+The dashboard was redesigned using an activity-first approach.
+
+The new design:
+
+- Consolidates metrics into a compact single-line status display.
+- Removes unnecessary decorative UI elements.
+- Reduces vertical space consumed by operational statistics.
+- Prioritizes the recent filesystem activity stream.
+- Adds terminal-height-aware rendering to improve responsiveness.
+- Preserves all critical monitoring information while reducing overall terminal footprint.
+
+The goal is to provide a lightweight monitoring experience similar to log viewers and tail-style tools rather than a full-screen dashboard.
 
 ### Implementation Plan
 
 Using UMPIRE framework (adapted):
 
-**Understand:** [Restate the problem]
+**Understand:**
 
-**Match:** [What similar patterns/solutions exist in the codebase?]
+The dashboard should remain useful while consuming significantly less terminal space. Filesystem activity should always be the highest-priority information displayed.
 
-**Plan:** [Step-by-step implementation plan]
-1. [Modify file X to do Y]
-2. [Add function Z]
-3. [Update tests]
+**Match:**
 
-**Implement:** [Link to your branch/commits as you work]
+The existing implementation already centralizes dashboard rendering inside render_dashboard(), making it possible to improve layout behavior without major architectural changes or additional dependencies.
 
-**Review:** [Self-review checklist - does it follow the project's contribution guidelines?]
+**Plan:**
+
+1. Modify src/cmd/mount.rs to redesign render_dashboard().
+2. Add terminal-height-aware rendering logic.
+3. Replace the multi-row OPS table with a compact status line.
+4. Remove decorative dashboard borders and excessive spacing.
+5. Increase available space for recent filesystem activity.
+6. Verify rendering behavior across multiple terminal sizes.
+
+**Implement:**
+
+https://github.com/Juuicee/agentignore/tree/dashboard-compact-ui
+src/cmd/mount.rs
+
+**Review:**
+
+- No additional dependencies introduced.
+- Preserves existing monitoring functionality.
+- Improves information density.
+- Prioritizes filesystem activity visibility.
+- Maintains readability.
+- Follows project contribution requirements.
 
 **Evaluate:** [How will you verify it works?]
 
+The implementation is considered successful if:
+
+- The dashboard occupies fewer terminal rows.
+- Activity history remains visible longer.
+- Metrics remain available in a compact format.
+- Rendering remains stable after terminal resizing.
+- No existing monitoring functionality is lost.
 ---
 
 ## Testing Strategy
 
 ### Unit Tests
 
-- [ ] Test case 1: [Description]
-- [ ] Test case 2: [Description]
-- [ ] Test case 3: [Description]
+- [ ] Test case 1: Verify path truncation continues to format long paths correctly.
+- [ ] Test case 2: Verify process name formatting remains within display limits.
+- [ ] Test case 3: Verify compact status line renders operation statistics correctly.
 
 ### Integration Tests
 
-- [ ] Integration scenario 1
-- [ ] Integration scenario 2
+- [ ] Integration scenario 1: Dashboard renders correctly with active filesystem events.
+- [ ] Integration scenario 2: Dashboard remains readable when terminal dimensions change.
 
 ### Manual Testing
 
-[What you tested manually and results]
+Manual validation was performed by reviewing dashboard rendering logic and testing output behavior across multiple terminal-size scenarios.
+
+- Activity stream receives the majority of available screen space.
+- Status metrics remain visible without dominating the interface.
+- Dashboard output remains readable in smaller terminals.
+- Existing monitoring information is preserved.
+- Rendering remains stable during repeated refresh cycles.
 
 ---
 
 ## Implementation Notes
 
-### Week [X] Progress
+### Week [3] Progress
 
-[What you built this week, challenges faced, decisions made]
+- Investigated dashboard rendering implementation in src/cmd/mount.rs.
+- Identified fixed-layout rendering as the primary source of excessive terminal usage.
+- Evaluated issue requirements and implementation constraints.
+- Designed a compact activity-focused dashboard layout.
 
 ### Week [Y] Progress
 
@@ -150,9 +205,15 @@ Using UMPIRE framework (adapted):
 
 ### Code Changes
 
-- **Files modified:** [List]
-- **Key commits:** [Links to important commits]
-- **Approach decisions:** [Why you chose certain approaches]
+- **Files modified:**
+  - src/cmd/mount.rs
+- **Key commits:**
+  - 'Reduce dashboard footprint with compact status layout'
+- **Approach decisions:**
+  - Chose an activity-first design because monitoring file access is the dashboard's primary purpose.
+  - Avoided introducing new crates to comply with project requirements.
+  - Reduced dashboard complexity while preserving critical operational metrics.
+  - Reused existing rendering infrastructure to minimize maintenance overhead.
 
 ---
 
