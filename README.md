@@ -5,7 +5,7 @@
 **Contribution Number:** [1]  
 **Student:** [TF Alfredo Medina]  
 **Issue:** [(https://github.com/skkdevcraft/agentignore/issues/6)]  
-**Status:** [Phase II] [Complete]
+**Status:** [Phase IV] [Complete]
 
 ---
 
