@@ -199,9 +199,13 @@ Manual validation was performed by reviewing dashboard rendering logic and testi
 - Evaluated issue requirements and implementation constraints.
 - Designed a compact activity-focused dashboard layout.
 
-### Week [Y] Progress
+### Week [4] Progress
 
-[Continue documenting as you work]
+- Implemented dashboard rendering updates in src/cmd/mount.rs.
+- Added terminal-height-aware rendering calculations through the terminal_height() helper function.
+- Updated dashboard rendering to dynamically limit displayed filesystem activity based on available terminal space.
+- Improved information density by reducing unnecessary screen usage.
+- Shifted the dashboard toward an activity-first design that prioritizes recent filesystem events.
 
 ### Code Changes
 
@@ -219,15 +223,15 @@ Manual validation was performed by reviewing dashboard rendering logic and testi
 
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when submitted]
+**PR Link:**
 
-**PR Description:** [Draft or final PR description - much of the content above can be adapted]
+**PR Description:** This contribution addresses Issue #6: Redesign --show-dashboard UI for Reduced Terminal Footprint.
 
 **Maintainer Feedback:**
-- [Date]: [Summary of feedback received]
-- [Date]: [How you addressed it]
+- [TBD]: [Summary of feedback received]
+- [TBD]: [How you addressed it]
 
-**Status:** [Awaiting review / Iterating / Approved / Merged]
+**Status:** [Awaiting review}
 
 ---
 
@@ -235,20 +239,28 @@ Manual validation was performed by reviewing dashboard rendering logic and testi
 
 ### Technical Skills Gained
 
-[What you learned technically]
+Through this contribution, I gained a better understanding of how terminal-based applications manage and render information efficiently. I learned how dashboard layouts impact usability and how design decisions can affect the visibility of high-priority information such as filesystem activity.
+
+I also improved my ability to navigate a Rust codebase, trace program execution through source files, and identify where application behavior is implemented. While reviewing src/cmd/mount.rs, I learned how rendering logic, statistics collection, and dashboard updates are connected within the application.
+
+I also gained some exposure to Linux-specific development concepts such as FUSE filesystems and platform-dependent Rust crates. This helped me better understand the challenges involved in developing cross-platform tools, especially since most of my previous development experience has been on Windows.
 
 ### Challenges Overcome
 
-[What was hard and how you solved it]
+Determining how to reduce the dashboard footprint without removing important monitoring information. To address this, I analyzed which dashboard elements were essential to users and focused on preserving activity visibility, operational statistics, and status information while reducing unnecessary screen usage.
+
+Understanding a codebase that I had not previously worked with required spending time tracing function calls and reviewing project structure before making implementation decisions.
 
 ### What I'd Do Differently Next Time
 
-[Reflection on your process]
+- I would create smaller incremental commits throughout development to make changes easier to review and track. 
+- I would also seek maintainer feedback earlier in the implementation process to confirm that my proposed approach aligns with project expectations before finalizing the solution.
 
 ---
 
 ## Resources Used
 
-- [Link to helpful documentation]
-- [Tutorial or Stack Overflow post that helped]
-- [GitHub issues or discussions that helped]
+Rust Programming Language Documentation: https://www.rust-lang.org/learn
+Cargo Documentation: https://doc.rust-lang.org/cargo/
+Rust Standard Library Documentation: https://doc.rust-lang.org/std/
+AgentIgnore GitHub Repository: https://github.com/skkdevcraft/agentignore
