@@ -260,7 +260,7 @@ Understanding a codebase that I had not previously worked with required spending
 
 ## Resources Used
 
-Rust Programming Language Documentation: https://www.rust-lang.org/learn
-Cargo Documentation: https://doc.rust-lang.org/cargo/
-Rust Standard Library Documentation: https://doc.rust-lang.org/std/
-AgentIgnore GitHub Repository: https://github.com/skkdevcraft/agentignore
+- Rust Programming Language Documentation: https://www.rust-lang.org/learn
+- Cargo Documentation: https://doc.rust-lang.org/cargo/
+- Rust Standard Library Documentation: https://doc.rust-lang.org/std/
+- AgentIgnore GitHub Repository: https://github.com/skkdevcraft/agentignore
